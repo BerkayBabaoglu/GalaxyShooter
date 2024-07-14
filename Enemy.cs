@@ -24,7 +24,10 @@ public class Enemy : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
 
 
-        _player = GameObject.Find("Player").GetComponent<Player>();
+        // FindWithTag is more optimizatied way to find the object in the scene
+        //_player = GameObject.Find("Player").GetComponent<Player>();
+        _player = GameObject.FindWithTag("Player").GetComponent<Player>();
+
 
         if (_player == null)
         {
@@ -55,7 +58,6 @@ public class Enemy : MonoBehaviour
             {
                 lasers[i].AssignEnemyLaser();
             }
-
         }
     }
 
@@ -73,29 +75,24 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            Player player = other.transform.GetComponent<Player>();
-
-            if (player != null)
+            if (_player != null)
             {
-                player.Damage();
+                _player.Damage();
             }
-
+            
             _anim.SetTrigger("OnEnemyDeath");
             _speed = 0;
             _audioSource.Play();
             Destroy(this.gameObject, 2.8f);
         }
-
-
-        if (other.tag == "Laser")
+        else if (other.CompareTag("Laser"))
         {
             Destroy(other.gameObject);
 
             if (_player != null)
             {
-
                 _player.AddScore(_pointsForEnemy);
             }
 
@@ -103,7 +100,9 @@ public class Enemy : MonoBehaviour
             _speed = 0;
             _audioSource.Play();
 
-            Destroy(GetComponent<Collider2D>());
+            // You also can disable the collider instead of destroying it for better optimization
+            // Destroy(this.gameObject.GetComponent<Collider2D>());
+            GetComponent<Collider2D>().enabled = false;
             Destroy(this.gameObject, 2.8f);
         }
 

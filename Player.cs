@@ -57,8 +57,8 @@ public class Player : MonoBehaviour
 
         
         
-        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>(); //Find the GameObject. Then Get Component
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _spawnManager = GameObject.FindbjectOfType(SpawnManager);
+        _uiManager = GameObject.FindbjectOfType(UIManager);
         _audioSource = GetComponent<AudioSource>();
 
         if (_spawnManager == null)
@@ -172,13 +172,13 @@ public class Player : MonoBehaviour
     
     public void Damage()
     {
-        if (_isShieldActive == true)
+        if (_isShieldActive)
         {
             if (_shieldStrength > 1)
             {
                 _shieldStrength--;
                 //_uiManager.UpdateShieldStrength(_shieldStrength);
-                return;
+                //return;
             }
             else
             {
@@ -186,13 +186,24 @@ public class Player : MonoBehaviour
                 _isShieldActive = false;
                 shieldVisualizer.gameObject.SetActive(false);
                 //_uiManager.UpdateShieldStrength(_shieldStrength);
-                return;
+                //return;
             }
-
+            return;
         }
 
 
         _lives--;
+
+        // Alternative usage
+        // switch (_lives)
+        // {
+        //     case 2:
+        //         _rightEngine.gameObject.SetActive(true);
+        //         break;
+        //     case 1:
+        //         _leftEngine.gameObject.SetActive(true);
+        //         break;
+        // }
 
         if (_lives == 2)
         {

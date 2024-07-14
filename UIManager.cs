@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
         }
         */
         //_restartText.gameObject.SetActive(false);
-        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _gameManager = GameObject.FindObjectOfType<GameManager>();
 
         if (_gameManager == null)
         {

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _uiManager = GameObject.Find("Spawn_Manager").GetComponent<UIManager>();
+        _uiManager = GameObject.FindObjectOfType(SpawnManager).GetComponent<UIManager>();
     }
     private void Update()
     {
