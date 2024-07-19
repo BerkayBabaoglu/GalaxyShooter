@@ -16,7 +16,9 @@ public class Asteroid : MonoBehaviour
     void Start()
     {
         
-            _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        // FindObjectOfType is more optimizatied way to find the object in the scene. GameObject.FindWithTag is even more optimized.
+        //_spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _spawnManager = GameObject.FindObjectOfType<SpawnManager>();
 
     }
 
@@ -28,7 +30,7 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Laser")
+        if (other.CompareTag("Laser"))
         {
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(other.gameObject);

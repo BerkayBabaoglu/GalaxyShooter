@@ -21,9 +21,9 @@ public class Explosion : MonoBehaviour
         else
         {
             _audioSource.clip = _explosionClip;
+            _audioSource.Play();
         }
 
-        _audioSource.Play();
         Destroy(this.gameObject, 3.0f);
     }
 
